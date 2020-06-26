@@ -177,7 +177,6 @@ const token_t *token_add()
         SYMBOL sym = getSymbol();
         token_num++;
         token_t *t = token_create(token_num, id, sym);
-        std::cout << "# | " << token_num << " |---   " << id << "   ---   " << labels[sym] << "\n";
         tail->next = t;
         tail = t;
         return tail;
