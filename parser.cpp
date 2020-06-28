@@ -4,7 +4,6 @@ int nested_layer = 0;
 
 const char *InvalidTokenException::what() const throw()
 {
-    std::string msg = "Syntax error: expected " + labels[expected] + ",but got " + labels[got] + "\n";
     return msg.c_str();
 }
 std::string InvalidTokenException::where()
@@ -14,7 +13,6 @@ std::string InvalidTokenException::where()
 
 const char *NestExceededException::what() const throw()
 {
-    std::string msg = "Syntax error: Nest layer exceeded max limit (" + std::to_string(MAX_NEST_LAYER) + ")\n";
     return msg.c_str();
 }
 std::string NestExceededException::where()

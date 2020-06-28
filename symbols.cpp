@@ -8,7 +8,6 @@ int token_num;
 
 const char *InvalidSymbolException::what() const throw()
 {
-    std::string msg = "Invalid symbol: " + s + "\n";
     return msg.c_str();
 }
 std::string InvalidSymbolException::where()

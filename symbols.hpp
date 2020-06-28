@@ -6,7 +6,6 @@
 #include <cstdlib>
 
 #include "utils.hpp"
-extern Info *info;
 
 /* symbol list */
 typedef enum
@@ -111,19 +110,6 @@ typedef struct _TOKEN_T
     struct _TOKEN_T *next;
 } token_t;
 
-/* the exception throw when getSymbol() got a invalid symbol */
-class InvalidSymbolException : public std::exception
-{
-    std::string s;
-    pos_t pos;
-
-public:
-    InvalidSymbolException(std::string s, pos_t pos) : s(s), pos(pos) {}
-    ~InvalidSymbolException() throw(){};
-    const char *what() const throw();
-    std::string where();
-};
-
 const int KEYWORD_NUM = 16;
 const int SYM_OFFSET = 20;
 
@@ -134,6 +120,22 @@ const int MAX_IDENTIFIER_LENGTH = 10;
 
 /* how many token will program prealloc */
 const int PREALLOC_TOKEN_NUM = 64;
+
+extern Info *info;
+
+/* the exception throw when getSymbol() got a invalid symbol */
+class InvalidSymbolException : public std::exception
+{
+    std::string msg;
+    std::string id;
+    pos_t pos;
+
+public:
+    InvalidSymbolException(std::string id, pos_t pos) : id(id), pos(pos) { msg = "Invalid symbol \"" + id + "\"\n"; }
+    ~InvalidSymbolException() throw(){};
+    const char *what() const throw();
+    std::string where();
+};
 
 /* get a char(as int) from ifstream and set cursor */
 int _get();

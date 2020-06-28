@@ -5,32 +5,40 @@
 
 #include <cstdarg>
 
+/* program only permit nested program that layer < MAX_NEST_LAYER */
+const int MAX_NEST_LAYER = 3;
+
 /* the exception throw when parser get a unexpected token */
 class InvalidTokenException : public std::exception
 {
+    std::string msg;
     SYMBOL expected;
     SYMBOL got;
     pos_t pos;
 
 public:
-    InvalidTokenException(SYMBOL expected, SYMBOL got, pos_t pos) : expected(expected), got(got), pos(pos) {}
+    InvalidTokenException(SYMBOL expected, SYMBOL got, pos_t pos) : expected(expected), got(got), pos(pos)
+    {
+        msg = "Syntax error: expected " + labels[expected] + ",but got " + labels[got] + "\n";
+    }
     ~InvalidTokenException() throw(){};
     const char *what() const throw();
     std::string where();
 };
 class NestExceededException : public std::exception
 {
+    std::string msg;
     pos_t pos;
 
 public:
-    NestExceededException(pos_t pos) : pos(pos) {}
+    NestExceededException(pos_t pos) : pos(pos)
+    {
+        msg = "Syntax error: Nest layer exceeded max limit (" + std::to_string(MAX_NEST_LAYER) + ")\n";
+    }
     ~NestExceededException() throw(){};
     const char *what() const throw();
     std::string where();
 };
-
-/* program only permit nested program that layer < MAX_NEST_LAYER */
-const int MAX_NEST_LAYER = 3;
 
 extern token_t *tail;
 extern pos_t err;
