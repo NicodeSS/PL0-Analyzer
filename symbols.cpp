@@ -199,14 +199,14 @@ void result_print()
     std::string buff;
 
     if (out_to_file)
-        std::cout << "Result has been writed to \"" << info->outfile << "\".\n";
+        std::cout << "Lexeme table has been written to \"" << info->outfile << "\".\n";
     else
-        std::cout << "Result:\n";
+        std::cout << "Lexeme Table:\n";
 
     sprintf(buf, "+-----+--------------------+-------------+\n"
                  "|%4s |%19s |%12s |\n"
                  "+-----+--------------------+-------------+\n",
-            "Seq", "Symbol", "Symbol Type");
+            "Seq", "Lexeme", "Token Type");
     buff = buf;
 
     if (out_to_file)

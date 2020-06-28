@@ -54,8 +54,9 @@ void print_help(const char *filename)
 {
     std::cout << "Usage: " << filename << " [options] infile\n"
               << "Options:\n"
-              << "\t-h        \tPrint this help\n"
-              << "\t-o outfile\tSpecify output file\n";
+              << "\t-h         \tPrint this help\n"
+              << "\t-a         \tAuto generate outfile according to infile\n"
+              << "\t-o filename\tSpecify output filename, overwrites \"-a\"\n";
 }
 
 Info *info;

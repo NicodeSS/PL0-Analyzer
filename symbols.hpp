@@ -46,7 +46,7 @@ typedef enum
     constsym,  // "const"
     varsym,    // "var"
     procsym,   // "procedure"
-    oddsym     // is odd or not
+    oddsym     // "odd"
 } SYMBOL;
 
 /* symbol labels */

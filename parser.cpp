@@ -60,11 +60,13 @@ void parse()
     catch (InvalidTokenException &e)
     {
         std::cerr << "./" << info->infile << ":" << e.where() << ": error: " << e.what() << std::endl;
+        std::cout << "./" << info->infile << " is not a valid PL/0 program." << std::endl;
         exit(1);
     }
     catch (NestExceededException &e)
     {
         std::cerr << "./" << info->infile << ":" << e.where() << ": error: " << e.what() << std::endl;
+        std::cout << "./" << info->infile << " is not a valid PL/0 program." << std::endl;
         exit(1);
     }
 }

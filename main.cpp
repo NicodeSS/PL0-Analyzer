@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
         info->fin.close();
         end = clock();
         std::cout << "Analysis Completed." << std::endl;
+        std::cout << "./" << info->infile << " is a valid PL/0 program." << std::endl;
         result_print();
         std::cout << std::setprecision(3)
                   << "Time Costed: " << (double)(end - start) / CLOCKS_PER_SEC << "s\n";
