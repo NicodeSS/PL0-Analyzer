@@ -142,7 +142,6 @@ void parse_proc(const token_t *token)
 
 void parse_statement(const token_t *token)
 {
-    // TODO
     switch (token->type)
     {
     case ident:
@@ -237,6 +236,8 @@ void parse_if(const token_t *token)
     parse_condition(next());
     check(tail, 1, thensym);
     parse_statement(next());
+    if (tail->type == semicolon)
+        next();
     if (tail->type == elsesym)
         parse_statement(next());
     nested_layer--;
