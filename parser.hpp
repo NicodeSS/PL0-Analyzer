@@ -32,6 +32,10 @@ public:
 /* program only permit nested program that layer < MAX_NEST_LAYER */
 const int MAX_NEST_LAYER = 3;
 
+extern token_t *tail;
+extern pos_t err;
+extern const std::string labels[];
+
 /* get next token */
 const token_t *next();
 

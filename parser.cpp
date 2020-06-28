@@ -1,8 +1,5 @@
 #include "parser.hpp"
 
-extern token_t *tail;
-extern pos_t err;
-extern const std::string labels[];
 int nested_layer = 0;
 
 const char *InvalidTokenException::what() const throw()
