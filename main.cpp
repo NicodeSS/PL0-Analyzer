@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
         info = new Info(argc, argv);
         start = clock();
         init();
-        while (!info->fin.eof())
+        while (info->fin)
             parse();
         info->fin.close();
         end = clock();
