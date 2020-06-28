@@ -1,0 +1,32 @@
+const m = 7, n = 85;
+var x,y,z,q,r;
+
+procedure mult;
+    const pi = 3;
+    var a,b,ans;
+    begin
+        a := x;
+        b := y;
+        ans := ((b+4)*3+(a+1)/5)/(pi * 2);
+        while b # 0 do
+        begin
+            if odd a then
+                z := z+a;
+            else
+                z := z-b;
+            b := b - 1;
+        end
+        while b > -5 do
+            b := b - 1;
+    end;
+
+begin
+    x := m;
+    y := n;
+    call mult;
+    repeat
+        r := r - 1;
+    until r <= 0;
+    read(a,b);
+    write(x,y);
+end.
