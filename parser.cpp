@@ -54,7 +54,7 @@ void parse()
         if (tail->type != eof)
         {
             parse_subprogram(tail);
-            check(tail, 1, period);
+            check(tail, 2, period, eof);
         }
     }
     catch (InvalidTokenException &e)
