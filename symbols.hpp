@@ -127,6 +127,11 @@ public:
 const int KEYWORD_NUM = 16;
 const int SYM_OFFSET = 20;
 
+/* program only permit number that length < MAX_NUMBER_LENGTH */
+const int MAX_NUMBER_LENGTH = 14;
+/* program only permit identifier that length < MAX_IDENTIFIER_LENGTH */
+const int MAX_IDENTIFIER_LENGTH = 10;
+
 /* how many token will program prealloc */
 const int PREALLOC_TOKEN_NUM = 64;
 

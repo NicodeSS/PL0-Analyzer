@@ -3,6 +3,7 @@
 extern token_t *tail;
 extern pos_t err;
 extern const std::string labels[];
+int nested_layer = 0;
 
 const char *InvalidTokenException::what() const throw()
 {
@@ -14,9 +15,18 @@ std::string InvalidTokenException::where()
     return std::to_string(pos.row) + "," + std::to_string(pos.col);
 }
 
+const char *NestExceededException::what() const throw()
+{
+    std::string msg = "Syntax error: Nest layer exceeded max limit (" + std::to_string(MAX_NEST_LAYER) + ")\n";
+    return msg.c_str();
+}
+std::string NestExceededException::where()
+{
+    return std::to_string(pos.row) + "," + std::to_string(pos.col);
+}
+
 const token_t *next()
 {
-    // get a symbol from instream and add token to link list.
     return token_add();
 };
 
@@ -48,6 +58,11 @@ void parse()
         }
     }
     catch (InvalidTokenException &e)
+    {
+        std::cerr << "./" << info->infile << ":" << e.where() << ": error: " << e.what() << std::endl;
+        exit(1);
+    }
+    catch (NestExceededException &e)
     {
         std::cerr << "./" << info->infile << ":" << e.where() << ": error: " << e.what() << std::endl;
         exit(1);
@@ -218,11 +233,14 @@ void parse_factor(const token_t *token)
 
 void parse_if(const token_t *token)
 {
+    if (++nested_layer >= MAX_NEST_LAYER)
+        throw NestExceededException(err);
     parse_condition(next());
     check(tail, 1, thensym);
     parse_statement(next());
     if (tail->type == elsesym)
         parse_statement(next());
+    nested_layer--;
     // tail point at next head
 }
 
@@ -241,9 +259,12 @@ void parse_condition(const token_t *token)
 
 void parse_while(const token_t *token)
 {
+    if (++nested_layer >= MAX_NEST_LAYER)
+        throw NestExceededException(err);
     parse_condition(next());
     check(tail, 1, dosym);
     parse_statement(next());
+    nested_layer--;
     // tail point at next head
 }
 
@@ -293,6 +314,8 @@ void parse_composite(const token_t *token)
 
 void parse_repeat(const token_t *token)
 {
+    if (++nested_layer >= MAX_NEST_LAYER)
+        throw NestExceededException(err);
     next();
     do
     {
@@ -301,5 +324,6 @@ void parse_repeat(const token_t *token)
             next();
     } while (tail->type != untilsym);
     parse_condition(next());
+    nested_layer--;
     // tail point at next head
 }

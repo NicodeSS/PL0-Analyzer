@@ -18,6 +18,19 @@ public:
     const char *what() const throw();
     std::string where();
 };
+class NestExceededException : public std::exception
+{
+    pos_t pos;
+
+public:
+    NestExceededException(pos_t pos) : pos(pos) {}
+    ~NestExceededException() throw(){};
+    const char *what() const throw();
+    std::string where();
+};
+
+/* program only permit nested program that layer < MAX_NEST_LAYER */
+const int MAX_NEST_LAYER = 3;
 
 /* get next token */
 const token_t *next();
