@@ -139,7 +139,7 @@ SYMBOL getSymbol()
         // [0-9]+
         if (digit && !alpha)
         {
-            if (id.length() > MAX_NUMBER_LENGTH)
+            if (id.length() >= MAX_NUMBER_LENGTH)
                 throw InvalidSymbolException(id + " (MAX_NUMBER_LENGTH_EXCEEDED)", err);
             int num = atoi(id.c_str());
             return number;
@@ -147,7 +147,7 @@ SYMBOL getSymbol()
         // [a-zA-Z][a-zA-Z0-9]+
         else if (!first_digit && alpha)
         {
-            if (id.length() > MAX_IDENTIFIER_LENGTH)
+            if (id.length() >= MAX_IDENTIFIER_LENGTH)
                 throw InvalidSymbolException(id + " (MAX_IDENTIFIER_LENGTH_EXCEEDED)", err);
             return getSymbolFromId(id);
         }
