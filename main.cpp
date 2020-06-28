@@ -13,10 +13,10 @@ int main(int argc, char *argv[])
         while (!info->fin.eof())
             parse();
         info->fin.close();
-        result_print();
         end = clock();
-        std::cout << std::setprecision(3) << std::endl
-                  << "Analysis Completed." << std::endl
+        std::cout << "Analysis Completed." << std::endl;
+        result_print();
+        std::cout << std::setprecision(3)
                   << "Time Costed: " << (double)(end - start) / CLOCKS_PER_SEC << "s\n";
     }
     catch (const char *msg)

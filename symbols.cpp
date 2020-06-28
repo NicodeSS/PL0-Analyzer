@@ -194,29 +194,42 @@ const token_t *token_add()
 
 void result_print()
 {
+    bool out_to_file = info->outfile.length();
     char buf[300];
     std::string buff;
+
+    if (out_to_file)
+        std::cout << "Result has been writed to \"" << info->outfile << "\".\n";
+    else
+        std::cout << "Result:\n";
 
     sprintf(buf, "+-----+--------------------+-------------+\n"
                  "|%4s |%19s |%12s |\n"
                  "+-----+--------------------+-------------+\n",
             "Seq", "Symbol", "Symbol Type");
     buff = buf;
-    std::cout << buff;
-    info->fout << buff;
+
+    if (out_to_file)
+        info->fout << buff;
+    else
+        std::cout << buff;
 
     for (token_t *t = tokens; t != tail; t = t->next)
     {
         sprintf(buf, "|%4d |%19s |%12s |\n", t->seq, t->text.c_str(),
                 labels[t->type].c_str());
         buff = buf;
-        std::cout << buff;
-        info->fout << buff;
+        if (out_to_file)
+            info->fout << buff;
+        else
+            std::cout << buff;
     }
 
-    buff = "+-----+--------------------+-------------+\n";
-    std::cout << buff;
-    info->fout << buff;
+    buff = "+-----+--------------------+-------------+\n\n";
+    if (out_to_file)
+        info->fout << buff;
+    else
+        std::cout << buff;
 
     info->fout.close();
 }
